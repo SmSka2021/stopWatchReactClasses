@@ -26,8 +26,15 @@ export class App extends React.Component {
     this.stop = this.stop.bind(this);
     this.reset = this.reset.bind(this);
     this.resume = this.resume.bind(this);
+    this.reset_update = this.reset_update.bind(this);
   }
-  start() {
+  reset_update(){
+    this.updatedMs = 0;
+    this.updatedS = 0;
+    this.updatedM = 0;
+    this.updatedH = 0;
+  }
+  start() {    
     this.run();
     this.setState({ status: 1 });
     this.setState({ interv: setInterval(this.run, 10) });
@@ -62,8 +69,9 @@ export class App extends React.Component {
   }
   reset() {
     clearInterval(this.state.interv);
-    this.setState({ status: 0 });
     this.setState({ time: { ms: 0, s: 0, m: 0, h: 0 } });
+    this.setState({ status: 0 });
+    this.reset_update();    
   }
   resume() {
     this.start();
